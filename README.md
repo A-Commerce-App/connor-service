@@ -1,22 +1,13 @@
-# Project Name
+# Connor's SDC SERVICE
 
-> Project description
+> A microservice for displaying related products
 
-## Related Projects
-
-  - https://github.com/House-Bezos/joe-service
-  - https://github.com/House-Bezos/deb-service
-  - https://github.com/House-Bezos/zains-service
-
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-
-## Usage
-
-> Some usage instructions
+Action | Method | URL
+-------|--------|-----
+Create a new listing | POST | /api/relatedProducts/:id
+Get a listing | GET | /api/relatedProducts/:id
+Update information for a related product | PUT | /api/relatedProducts
+Delete a listing | DELETE | /api/relatedProducts/:id
 
 ## Requirements
 
@@ -25,7 +16,6 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 - Node 6.13.0
 - etc
 
-## Development
 
 ### Installing Dependencies
 
