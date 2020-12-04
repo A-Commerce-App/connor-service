@@ -12,6 +12,8 @@ for (var i = 0; i < numImgs; i++) {
   s3Images.push(`https://fec-related-items.s3-us-west-2.amazonaws.com/bars/${i}.jpg`);
 }
 
+//https://fec-related-items.s3-us-west-2.amazonaws.com/bars/${i}.jpg
+//https://source.unsplash.com/random/800x600?${terms[i]}
 
 let seedData = [];
 for (var i = 0; i <= 100; i++) {
@@ -29,7 +31,7 @@ for (var i = 0; i <= 100; i++) {
   console.log('document ', i, ' created');
 }
 //db.dropDatabase();
-db.insertMany(seedData).then(() => {
+db.Product.insertMany(seedData).then(() => {
   mongoose.disconnect();
 });
 

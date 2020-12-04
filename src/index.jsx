@@ -26,7 +26,7 @@ class RelatedItems extends React.Component {
   }
 
   getData() {
-    axios.get('/api/relatedProducts/all')
+    axios.get('/api/relatedProducts/1')
     .then((res) => {
       if (!res) {
         throw res;
