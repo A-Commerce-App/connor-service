@@ -1,2 +1,2 @@
-\c relatedproducts;
-COPY product(pageid, name, rating, numratings, prime, price, images) from '/Users/connorwilson/hack-reactor/SEI/SDC/Dylans-service/database/data.csv' CSV DELIMITER ','
+\c products;
+COPY product (name, related) FROM '/Volumes/Seagate Backup Plus Drive/relatedProducts.csv' csv quote '^' delimiter '|';

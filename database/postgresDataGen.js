@@ -1,33 +1,37 @@
 const faker = require('faker');
 const someObject = require('./data.json');
 const fs = require('fs');
+const path = require('path');
 
-generateProducts = (pageId) => {
+const generateProducts = () => {
   let records = [];
   for (let i = 0; i < 7; i++) {
     let randomIndex = Math.floor(Math.random() * 999);
     let record = someObject[randomIndex];
-    record.pageId = pageId;
     records.push(record);
   }
   return records;
 };
 
-const reviewsStream = fs.createWriteStream(__dirname + '/data.csv', {flags: 'a'});
+const generatePage = () => {
+  let randomIndex = Math.floor(Math.random() * 999);
+  let randomName = someObject[randomIndex].name;
+  return randomName;
+};
 
-function addDataToCSV(writer, encoding, callback) {
+const stream = fs.createWriteStream('/Volumes/Seagate Backup Plus Drive/relatedProducts.csv', {flags: 'a'});
+
+function writeToCSV(writer, encoding, callback) {
   let i = 10000000;
   function write() {
     let ok = true;
     do {
       i -= 1;
       let string = '';
-      let records = generateProducts(i);
-      records.forEach((record) => {
-        const { pageId, name, rating, numRatings, prime, price, images } = record;
-        string += `${pageId}, ${name}, ${rating}, ${numRatings}, ${prime}, ${price}, "{${images[0]}, ${images[1]}, ${images[2]}}"\n`;
-      });
-      if (i === 0) {
+      let product = generatePage();
+      let json = generateProducts();
+      string += `${product}| ${JSON.stringify(json)}\n`;
+      if (i === 1) {
         writer.write(string, encoding, callback);
       } else {
         ok = writer.write(string, encoding);
@@ -37,8 +41,10 @@ function addDataToCSV(writer, encoding, callback) {
       writer.once('drain', write);
     }
   }
-write();
+  write();
 }
-addDataToCSV(reviewsStream, 'utf-8', () => {
-  reviewsStream.end();
+
+writeToCSV(stream, 'utf-8', () => {
+  stream.end();
 });
+

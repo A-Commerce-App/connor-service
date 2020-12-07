@@ -1,16 +1,11 @@
-DROP DATABASE IF EXISTS relatedproducts;
+DROP DATABASE IF EXISTS products;
 
-CREATE DATABASE relatedproducts;
+CREATE DATABASE products;
 
-\c relatedproducts;
+\c products;
 
 CREATE TABLE product (
-  id BIGSERIAL PRIMARY KEY,
-  pageId INT,
-  name VARCHAR(200),
-  rating INT,
-  numRatings INT,
-  prime BOOLEAN,
-  price DECIMAL,
-  images TEXT[]
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  related JSON
 );
