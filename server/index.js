@@ -7,12 +7,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-const db = require('../database/database.js');
+const db = require('../database/postgresDB.js');
 
 app.get('/api/relatedProducts/:id', (req, res) => {
+  console.log('request received');
+  const { id } = req.params;
   async function handleRequest() {
     try {
-      const data = await db.readAll();
+      const data = await db.readAll(id);
       res.status(200).send(data);
     }
     catch(err) {
