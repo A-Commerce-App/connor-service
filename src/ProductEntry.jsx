@@ -47,7 +47,7 @@ const ProductEntry = ({props}) => {
     <div className={styles.Entry} onClick={() => console.log('This is where you would be redirected to', props.name)}>
       <div className={styles.HoverBox}>
         <img className={styles.ProdImg}
-          src={props.images[currentImg]}
+          src={props.image1}
           alt='productImg'
           onMouseEnter={() => setImgHelper(true)}
           onMouseLeave={() => setImgHelper(false)}
@@ -55,7 +55,7 @@ const ProductEntry = ({props}) => {
         <div>{props.name}</div>
       </div>
       <div>{starRating(props.rating)}</div>
-      <div className={styles.Price}>${props.price.toFixed(2)}<span>
+      <div className={styles.Price}>${props.price}<span>
         <img className={styles.Prime} hidden={props.prime} alt='primeIcon' src={primeIcon}/>
         </span>
       </div>

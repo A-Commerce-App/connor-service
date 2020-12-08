@@ -10,11 +10,26 @@ app.use(bodyParser.json());
 const db = require('../database/postgresDB.js');
 
 app.get('/api/relatedProducts/:id', (req, res) => {
-  console.log('request received');
   const { id } = req.params;
   async function handleRequest() {
     try {
       const data = await db.readAll(id);
+      res.status(200).send(data.rows[0].related);
+    }
+    catch(err) {
+      console.log(err.message);
+      res.header(400);
+      res.send(err.message);
+    }
+  }
+  handleRequest();
+});
+
+app.post('/api/relatedProducts/', (req, res) => {
+  const { body } = req;
+  async function handleRequest() {
+    try {
+      const data = await db.save(body);
       res.status(200).send(data);
     }
     catch(err) {
@@ -26,13 +41,14 @@ app.get('/api/relatedProducts/:id', (req, res) => {
   handleRequest();
 });
 
-app.post('/api/relatedProducts/:id', (req, res) => {
+app.patch('/api/relatedProducts/:id', (req, res) => {
+  const { body } = req;
   const { id } = req.params;
-  const { body } = req;
+  console.log('request received');
   async function handleRequest() {
     try {
-      const data = await db.save(id, body);
-      res.status(200).send(data);
+      const result = await db.update(body, id);
+      res.status(200).send(result);
     }
     catch(err) {
       console.log(err.message);
@@ -43,11 +59,11 @@ app.post('/api/relatedProducts/:id', (req, res) => {
   handleRequest();
 });
 
-app.patch('/api/relatedProducts/', (req, res) => {
-  const { body } = req;
+app.delete('/api/relatedProducts/:id', (req, res) => {
+  const { id } = req.params;
   async function handleRequest() {
     try {
-      const result = await db.update(body);
+      const result = await db.remove(id);
       res.status(200).send(result);
     }
     catch(err) {
@@ -56,23 +72,8 @@ app.patch('/api/relatedProducts/', (req, res) => {
       res.send(err.message);
     }
   }
+  handleRequest();
 });
-
-app.delete('/api/relatedProducts/', (req, res) => {
-  const { body } = req;
-  async function handleRequest() {
-    try {
-      const result = await db.delete(body);
-      res.status(200).send(result);
-    }
-    catch(err) {
-      console.log(err.message);
-      res.header(400);
-      res.send(err.message);
-    }
-  }
-});
-
 
 let port = 3003;
 

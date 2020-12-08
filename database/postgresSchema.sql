@@ -6,6 +6,6 @@ CREATE DATABASE products;
 
 CREATE TABLE product (
   id SERIAL PRIMARY KEY,
-  name TEXT,
+  name TEXT NOT NULL,
   related JSON
 );
