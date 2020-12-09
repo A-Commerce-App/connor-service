@@ -4,10 +4,10 @@
 
 Action | Method | URL
 -------|--------|-----
-Create a new listing | POST | /api/relatedProducts/:id
-Get a listing | GET | /api/relatedProducts/:id
-Update information for a related product | PUT | /api/relatedProducts
-Delete a listing | DELETE | /api/relatedProducts/:id
+Create new product with related products | POST | /api/relatedProducts/
+Get related products by product id | GET | /api/relatedProducts/:id
+Update information for related products by id | PUT | /api/relatedProducts/:id
+Delete a related products by id | DELETE | /api/relatedProducts/:id
 
 ## Requirements
 
@@ -22,10 +22,13 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
-## Start mongodb locally
- sudo service mongod start
 
+To start:
+
+```sh
+npm run build
+npm start
+```
 
