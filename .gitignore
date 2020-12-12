@@ -3,3 +3,6 @@ node_modules
 package-lock.json
 bundle.js
 tokens.js
+.env
+load-test.json
+newrelic_agent.log

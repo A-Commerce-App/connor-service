@@ -1,11 +1,12 @@
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
+require('newrelic');
 
 const app = express();
 app.use(express.static(__dirname + '/../client'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 
 const db = require('../database/postgresDB.js');
 
@@ -44,7 +45,6 @@ app.post('/api/relatedProducts/', (req, res) => {
 app.patch('/api/relatedProducts/:id', (req, res) => {
   const { body } = req;
   const { id } = req.params;
-  console.log('request received');
   async function handleRequest() {
     try {
       const result = await db.update(body, id);
@@ -79,4 +79,4 @@ let port = 3003;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
-})
+});
