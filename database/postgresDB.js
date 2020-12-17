@@ -6,12 +6,18 @@ const client = new Client({
   host: process.env.DATABASE_IP,
   port: 5432
 });
+const redisClient = require('./redisClient.js');
 
 client.connect();
 
 const readAll = async (id) => {
   try {
+    let attempt = await redisClient.getAsync(id);
+    if (attempt) {
+      return JSON.parse(attempt);
+    }
     let results = await client.query('SELECT * FROM product WHERE id = $1', [id]);
+    await redisClient.setAsync(id, JSON.stringify(results));
     return results;
   }
   catch(err) {
